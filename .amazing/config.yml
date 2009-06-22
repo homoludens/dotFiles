@@ -1,0 +1,68 @@
+# amazing configuration file, using amazing devel snapshot from Apr 2008
+#   http://awesome.naquadah.org/wiki/index.php/Amazing
+# 
+##########################################################################
+
+#include:
+#    - /usr/lib/ruby/site_ruby/1.8/amazing/widgets.rb
+
+widgets:
+    0:
+        sbartop cpu_graph:
+            type: CPUUsage
+            every: 2
+            format: '"data cpu #@usage"'
+            cpu: 0
+        sbartop battery:
+            type: Battery
+            every: 15
+            format: '"text #{@percentage.to_i}%"'
+        sbartop thermal:
+            type: Thermal
+            every: 15
+            format: '"text #{@temperature.to_i}°C"'
+        sbartop hd_bar:
+            type: Filesystem
+            every: 240
+            format: '"data root #{@percentage["/"]}\n0 widget_tell #@identifier data home #{@percentage["/home"]}\n0 widget_tell #@identifier data storage #{@percentage["/mnt/storage"]}\n0 widget_tell #@identifier data backup #{@percentage["/mnt/backup"]}"'
+        sbartop mem_bar:
+            type: Memory
+            every: 10
+            format: '"data mem #@usage"'
+        sbartop down:
+            type: NetTraffic
+            every: 3
+            format: '"text %.1f" % @down'
+        sbartop up:
+            type: NetTraffic
+            every: 3
+            format: '"text %.1f" % @up'
+        sbartop widown:
+            type: WifiTraffic
+            every: 3
+            format: '"text %.1f" % @down'
+        sbartop wiup:
+            type: WifiTraffic
+            every: 3
+            format: '"text %.1f" % @up'
+        sbartop mail:
+            type: Mailbox
+            every: 30
+            format: '"text #{@subject}"'
+        sbartop vol_tb:
+            type: ALSA
+            every: 1
+            mixer: PCM
+            format: '"text #{@volume}%"'
+        sbartop vol_bar:
+            type: ALSA
+            every: 1
+            mixer: PCM
+            format: '"data pcm #@volume"'
+        sbartop date:
+            type: Clock
+            every: 1
+            format: '"text #@time"'
+            time_format: "%b %e, %R"
+
+

@@ -1,0 +1,238 @@
+------------------------------------------------------------------------
+--syntax: xmonad --recompile
+------------------------------------------------------------------------
+ 
+import XMonad hiding (Tall)
+import XMonad.Actions.CycleWS
+import XMonad.Actions.FloatKeys
+import XMonad.Actions.WithAll
+import XMonad.Hooks.DynamicHooks
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.ResizableTile
+import XMonad.ManageHook
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+import XMonad.Util.Run
+import Graphics.X11
+import System.Exit
+import System.IO
+ 
+import qualified Data.Map as M
+import qualified XMonad.Actions.FlexibleResize as Flex
+import qualified XMonad.StackSet as W
+ 
+main = do
+  --xmobar <- spawnPipe myStatusBar
+  dzen <- spawnPipe myStatusBar
+  conkytop <- spawnPipe myTopBar
+  conkympd <- spawnPipe myMPDBar
+  conkyhdd <- spawnPipe myHDDBar
+  dynHooksRef <- initDynamicHooks
+  xmonad $ myUrgencyHook $ defaultConfig
+ 
+    { terminal = "urxvt"
+    , borderWidth = 1
+    , keys = myKeys dynHooksRef
+    , modMask = mod1Mask
+    , numlockMask = mod2Mask
+    , focusFollowsMouse = True
+    , mouseBindings = myMouseBindings
+    , normalBorderColor = "#0f0f0f"
+    , focusedBorderColor = "#1f1f1f"
+    , layoutHook = myLayout
+    , logHook = dynamicLogWithPP (myDzenPP dzen) >> fadeInactiveLogHook 0x99999999
+    --, logHook = dynamicLogWithPP $ myXmobarPP xmobar
+    , manageHook = myManageHook <+> manageDocks <+> dynamicMasterHook dynHooksRef
+    , workspaces = ["1:irc", "2:www", "3:music", "4:nicotine", "5:misc"]
+    }
+ 
+-- Color, font and iconpath definitions:
+myFont = "-xos4-terminus-medium-r-normal-*-14-*-*-*-c-*-iso10646-1"
+myIconDir = "/home/and1/.dzen"
+myDzenFGColor = "#555555"
+myDzenBGColor = ""
+myNormalFGColor = "#ffffff"
+myNormalBGColor = "#0f0f0f"
+myFocusedFGColor = "#f0f0f0"
+myFocusedBGColor = "#333333"
+myUrgentFGColor = "#0099ff"
+myUrgentBGColor = "#0077ff"
+myIconFGColor = "#777777"
+myIconBGColor = ""
+mySeperatorColor = "#555555"
+ 
+-- Statusbar options:
+--myStatusBar = "xmobar"
+myStatusBar = "dzen2 -x '0' -y '0' -h '16' -w '1300' -ta 'l' -fg '" ++ myNormalFGColor ++ "' -bg '" ++ myNormalBGColor ++ "' -fn '" ++ myFont ++ "'"
+myTopBar = "conky -c .conkytop | dzen2 -x '1300' -y '0' -h '16' -w '620' -ta 'r' -fg '" ++ myDzenFGColor ++ "' -bg '" ++ myNormalBGColor ++ "' -fn '" ++ myFont ++ "'"
+myMPDBar = "conky -c .conkympd | dzen2 -x '0' -y '1184' -h '16' -w '1600' -ta 'l' -fg '" ++ myDzenFGColor ++ "' -bg '" ++ myNormalBGColor ++ "' -fn '" ++ myFont ++ "'"
+myHDDBar = "conky -c .conkyhdd | dzen2 -x '1600' -y '1184' -h '16' -w '320' -ta 'r' -fg '" ++ myDzenFGColor ++ "' -bg '" ++ myNormalBGColor ++ "' -fn '" ++ myFont ++ "'"
+ 
+-- Urgency hint options:
+myUrgencyHook = withUrgencyHook dzenUrgencyHook
+    { args = ["-x", "0", "-y", "1184", "-h", "16", "-w", "1920", "-ta", "r", "-expand", "l", "-fg", "" ++ myUrgentFGColor ++ "", "-bg", "" ++ myNormalBGColor ++ "", "-fn", "" ++ myFont ++ ""] }
+ 
+-- Layout options:
+myLayout = avoidStruts $ layoutHints $ onWorkspace "1:irc" (resizableTile ||| Mirror resizableTile) $ smartBorders (Full ||| resizableTile ||| Mirror resizableTile)
+    where
+    resizableTile = ResizableTall nmaster delta ratio []
+    nmaster = 1
+    ratio = toRational (2/(1+sqrt(5)::Double))
+    delta = 3/100
+ 
+-- XPConfig options:
+myXPConfig = defaultXPConfig
+    { font = "" ++ myFont ++ ""
+    , bgColor = "" ++ myFocusedBGColor ++ ""
+    , fgColor = "" ++ myNormalFGColor ++ ""
+    , fgHLight = "" ++ myNormalFGColor ++ ""
+    , bgHLight = "" ++ myUrgentBGColor ++ ""
+    , borderColor = "" ++ myNormalFGColor ++ ""
+    , promptBorderWidth = 1
+    , position = Bottom
+    , height = 16
+    , historySize = 100
+    }
+ 
+-- Key bindings:
+myKeys dynHooksRef conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+    [ ((mod4Mask, xK_q), spawn "urxvt -e ssh and1@domain.net")
+    , ((mod4Mask, xK_w), spawn "nitrogen --no-recurse --sort=alpha /home/and1/wallpapers/")
+    , ((mod4Mask, xK_e), spawn "iceweasel")
+    , ((mod4Mask, xK_r), oneShotHook dynHooksRef (className =? "URxvt") (doF $ (W.swapDown . W.shiftMaster)) >> spawn "urxvt")
+    , ((mod4Mask .|. shiftMask, xK_r), oneShotHook dynHooksRef (className =? "URxvt") (doF $ (W.swapUp . W.shiftMaster)) >> spawn "urxvt")
+    , ((mod4Mask, xK_o), spawn "openoffice")
+    , ((mod4Mask, xK_p), shellPrompt myXPConfig)
+    , ((mod4Mask, xK_d), spawn "date +'%Y-%m-%d %H:%M' | osd_cat -p bottom -A center -s 2 -c '#a10a30' -f '-xos4-terminus-medium-r-normal-*-140-*-*-*-c-*-iso10646-1'")
+    , ((mod4Mask .|. shiftMask, xK_d), spawn "date +'%H:%M' | osd_cat -p middle -A center -s 2 -c '#a10a30' -f '-xos4-terminus-medium-r-normal-*-140-*-*-*-c-*-iso10646-1'")
+    , ((mod4Mask, xK_f), oneShotHook dynHooksRef (className =? "URxvt") doFloat >> spawn "urxvt -g 120x40+930+40")
+    , ((mod4Mask .|. shiftMask, xK_f), oneShotHook dynHooksRef (className =? "URxvt") doFloat >> spawn "urxvt -g 180x10+20+1020")
+    , ((mod4Mask, xK_g), spawn "gimp")
+    , ((mod4Mask, xK_k), spawn "k3b")
+    , ((mod4Mask, xK_l), spawn "slock")
+    , ((mod4Mask, xK_x), spawn "schroot -p gmpc")
+    , ((mod4Mask, xK_v), spawn "virtualbox")
+    , ((mod4Mask, xK_n), spawn "nicotine")
+    , ((mod4Mask, xK_Print), spawn "scrot screen_%Y-%m-%d.png -d 1") -- take screenshot
+    , ((modMask .|. controlMask, xK_Home), spawn "mpc toggle") -- play/pause song
+    , ((modMask .|. controlMask, xK_End), spawn "mpc stop") -- stop playback
+    , ((modMask .|. controlMask, xK_Prior), spawn "mpc prev") -- previous song
+    , ((modMask .|. controlMask, xK_Next), spawn "mpc next") -- next song
+    , ((modMask, xK_Tab), windows W.focusDown) -- move focus to the next window
+    , ((modMask, xK_j), windows W.focusUp) -- move focus to the previous window
+    , ((modMask, xK_k), windows W.focusDown) -- move focus to the next window
+    , ((modMask, xK_n), refresh) -- resize viewed windows to the correct size
+    , ((modMask, xK_m), windows W.swapMaster) -- swap the focused window and the master window
+    , ((modMask, xK_comma), sendMessage (IncMasterN 1)) -- increment the number of windows in the master area
+    , ((modMask, xK_period), sendMessage (IncMasterN (-1))) -- deincrement the number of windows in the master area
+    , ((modMask, xK_Return), windows W.focusMaster) -- move focus to the master window
+    , ((modMask, xK_f), sendMessage NextLayout) -- rotate through the available layout algorithms
+    , ((modMask .|. shiftMask, xK_Tab), windows W.focusUp) -- move focus to the previous window
+    , ((modMask .|. shiftMask, xK_h), sendMessage Shrink) -- shrink the master area
+    , ((modMask .|. shiftMask, xK_j), windows W.swapUp)  -- swap the focused window with the previous window
+    , ((modMask .|. shiftMask, xK_k), windows W.swapDown) -- swap the focused window with the next window
+    , ((modMask .|. shiftMask, xK_l), sendMessage Expand) -- expand the master area
+    , ((modMask .|. shiftMask, xK_Return), focusUrgent) -- move focus to urgent window
+    , ((modMask .|. shiftMask, xK_Left), withFocused (keysResizeWindow (-30,0) (0,0))) -- shrink floated window horizontally by 50 pixels 
+    , ((modMask .|. shiftMask, xK_Right), withFocused (keysResizeWindow (30,0) (0,0))) -- expand floated window horizontally by 50 pixels
+    , ((modMask .|. shiftMask, xK_Up), withFocused (keysResizeWindow (-30,-30) (0,0))) -- shrink floated window by 50 pixels
+    , ((modMask .|. shiftMask, xK_Down), withFocused (keysResizeWindow (30,30) (0,0))) -- expand floated window by 50 pixels
+    , ((modMask .|. controlMask, xK_q), io (exitWith ExitSuccess)) -- quit xmonad
+    , ((modMask .|. controlMask, xK_r), spawn "killall conky dzen2 && sleep 0.5" >> restart "xmonad" True) -- restart xmonad
+    , ((modMask .|. controlMask, xK_d), withFocused $ windows . W.sink) -- push window back into tiling
+    , ((modMask .|. controlMask, xK_f), setLayout $ XMonad.layoutHook conf) -- reset the layouts on the current workspace to default
+    , ((modMask .|. controlMask, xK_h), sendMessage MirrorExpand) -- expand the height/wide
+    , ((modMask .|. controlMask, xK_j), windows W.swapUp)  -- swap the focused window with the previous window
+    , ((modMask .|. controlMask, xK_k), windows W.swapDown) -- swap the focused window with the next window
+    , ((modMask .|. controlMask, xK_l), sendMessage MirrorShrink) -- shrink the height/wide
+    , ((modMask .|. controlMask, xK_x), kill) -- close focused window
+    , ((modMask .|. controlMask, xK_Left), withFocused (keysMoveWindow (-30,0))) -- move floated window 10 pixels left
+    , ((modMask .|. controlMask, xK_Right), withFocused (keysMoveWindow (30,0))) -- move floated window 10 pixels right
+    , ((modMask .|. controlMask, xK_Up), withFocused (keysMoveWindow (0,-30))) -- move floated window 10 pixels up
+    , ((modMask .|. controlMask, xK_Down), withFocused (keysMoveWindow (0,30))) -- move floated window 10 pixels down
+    ]
+    ++
+    [ ((m .|. modMask, k), windows $ f i)
+    | (i, k) <- zip (XMonad.workspaces conf) [xK_F1 .. xK_F9] -- mod-[F1..F9], switch to workspace n
+    , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)] -- mod-shift-[F1..F9], move window to workspace n
+    ]
+    ++
+    [ ((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    | (key, sc) <- zip [xK_F10, xK_F11, xK_F12] [0..] -- mod-{F10,F11,F12}, switch to physical/Xinerama screens 1, 2, or 3
+    , (f, m) <- [(W.view, 0), (W.shift, shiftMask)] -- mod-shift-{F10,F11,F12}, move window to screen 1, 2, or 3
+    ]
+ 
+-- Mouse bindings:
+myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
+    [ ((modMask, button1), (\w -> focus w >> mouseMoveWindow w)) -- set the window to floating mode and move by dragging
+    , ((modMask, button2), (\w -> focus w >> windows W.swapMaster)) -- raise the window to the top of the stack
+    , ((modMask, button3), (\w -> focus w >> Flex.mouseResizeWindow w)) -- set the window to floating mode and resize by dragging
+    , ((modMask, button4), (\_ -> prevWS)) -- switch to previous workspace
+    , ((modMask, button5), (\_ -> nextWS)) -- switch to next workspace
+    ]
+ 
+-- Window rules:
+myManageHook = composeAll . concat $
+    [ [className =? c --> doFloat | c <- myCFloats]
+    , [title =? t --> doFloat | t <- myTFloats]
+    , [resource =? r --> doFloat | r <- myRFloats]
+    , [className =? "Iceweasel" --> doShift "2:www"]
+    , [className =? "Gmpc" --> doShift "3:music"]
+    , [className =? "Nicotine" --> doShift "4:nicotine"]
+    , [className =? "Gimp" --> doShift "5:misc"]
+    , [className =? "K3b" --> doShift "5:misc"]
+    , [className =? "tmw" --> doShift "5:misc"]
+    , [className =? "VirtualBox" --> doShift "5:misc"]
+    , [className =? "Wine" --> doShift "5:misc"]
+    , [title =? "MusicBrainz Picard" --> doShift "5:misc"]
+    ]
+    where
+    myCFloats = ["Ekiga", "Gimp", "MPlayer", "Nitrogen", "Nvidia-settings", "XCalc", "XFontSel", "Xmessage", "xmms"]
+    myTFloats = ["Downloads", "Iceweasel Preferences", "Save As..."]
+    myRFloats = []
+ 
+-- dynamicLog pretty printer for dzen:
+myDzenPP h = defaultPP
+    { ppCurrent = wrap ("^fg(" ++ myUrgentFGColor ++ ")^bg(" ++ myFocusedBGColor ++ ")^p()^i(" ++ myIconDir ++ "/corner.xbm)^fg(" ++ myNormalFGColor ++ ")") "^fg()^bg()^p()" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppVisible = wrap ("^fg(" ++ myNormalFGColor ++ ")^bg(" ++ myFocusedBGColor ++ ")^p()^i(" ++ myIconDir ++ "/corner.xbm)^fg(" ++ myNormalFGColor ++ ")") "^fg()^bg()^p()" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppHidden = wrap ("^i(" ++ myIconDir ++ "/corner.xbm)") "^fg()^bg()^p()" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId -- don't use ^fg() here!!
+    , ppHiddenNoWindows = wrap ("^fg(" ++ myDzenFGColor ++ ")^bg()^p()^i(" ++ myIconDir ++ "/corner.xbm)") "^fg()^bg()^p()" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppUrgent = wrap ("^fg(" ++ myUrgentFGColor ++ ")^bg()^p()") "^fg()^bg()^p()" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppSep = " "
+    , ppWsSep = " "
+    , ppTitle = dzenColor ("" ++ myNormalFGColor ++ "") "" . wrap "< " " >"
+    , ppLayout = dzenColor ("" ++ myNormalFGColor ++ "") "" .
+        (\x -> case x of
+        "Hinted Full" -> "^fg(" ++ myIconFGColor ++ ")^i(" ++ myIconDir ++ "/layout-full.xbm)"
+        "Hinted ResizableTall" -> "^fg(" ++ myIconFGColor ++ ")^i(" ++ myIconDir ++ "/layout-tall-right.xbm)"
+        "Hinted Mirror ResizableTall" -> "^fg(" ++ myIconFGColor ++ ")^i(" ++ myIconDir ++ "/layout-mirror-bottom.xbm)"
+        _ -> x
+        )
+    , ppOutput = hPutStrLn h
+    }
+ 
+-- dynamicLog pretty printer for xmobar:
+myXmobarPP h = defaultPP
+    { ppCurrent = wrap ("[<fc=" ++ myUrgentFGColor ++ ">") "</fc>]" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppVisible = wrap ("[<fc=" ++ myNormalFGColor ++ ">") "</fc>]" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppHidden = wrap "" "" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId -- don't use <fc> here!!
+    , ppHiddenNoWindows = wrap ("<fc=" ++ myDzenFGColor ++ ">") "</fc>" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppUrgent = wrap ("<fc=" ++ myUrgentFGColor ++ ">") "</fc>" . \wsId -> if (':' `elem` wsId) then drop 2 wsId else wsId
+    , ppSep = " "
+    , ppWsSep = " "
+    , ppTitle = xmobarColor (""++ myNormalFGColor ++ "") "" . wrap "< " " >"
+    , ppLayout = xmobarColor (""++ myDzenFGColor ++ "") "" .
+        (\x -> case x of
+        "Hinted Full" -> "[ ]"
+        "Hinted ResizableTall" -> "[|]"
+        "Hinted Mirror ResizableTall" -> "[-]"
+        _ -> x
+        )
+    , ppOutput = hPutStrLn h
+    }

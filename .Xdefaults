@@ -1,0 +1,412 @@
+!-------------------------------------------------------------------------------
+!
+!
+!      X F T
+!
+!
+Xft.antialias: 1
+Xft.dpi:       96
+Xft.hinting:   1
+Xft.hintstyle: hintfull
+Xft.rgba:      rgb
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      E M A C S
+!
+! Most settings deprecated since gtk2 support, and
+! Color-Theme package takes care of coloring now.
+!Emacs*font:       -xos4-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-2
+!Emacs*Background: #262626
+!Emacs*Foreground: #bdb76b
+!Emacs*Background: gray15
+!Emacs*Foreground: darkkhaki
+
+
+!-------------------------------------------------------------------------------
+!
+!	U R X V T
+!
+! General
+!urxvt*geometry:         80x26
+urxvt.termName:  rxvt-256color
+urxvt.loginShell:         true
+urxvt.scrollBar:         false
+urxvt.internalBorder:        0
+urxvt.borderWidth:           0
+urxvt.secondaryScroll:    true
+urxvt.saveLines:         65535
+urxvt.cursorBlink:        true
+!
+! Extensions
+urxvt*perl-lib:         /usr/lib/urxvt/perl/
+urxvt*perl-ext-common:  default,matcher,searchable-scrollback
+urxvt*urlLauncher:      /usr/local/bin/firefox
+urxvt*matcher.button:   1
+! So we catch even nasty URLs
+urxvt.cutchars:         `()'*<>[]{|}"'
+URxvt*cutchars:         `"()'*<>[]{|}"
+!
+! Appearance
+urxvt.font:     -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+urxvt.boldFont: -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+!urxvt.font:        xft:Bitstream Vera Sans Mono:pixelsize=10:autohint=true
+!urxvt.boldFont:    xft:Bitstream Vera Sans Mono:bold:pixelsize=10:autohint=true
+
+!
+urxvt.transparent: false
+!urxvt.shading:    30
+urxvt.cursorColor: #FFFFFF
+urxvt*faceName:      terminus:pixelsize=8
+
+! 
+! Zenburn
+urxvt*background:  #3f3f3f
+urxvt*foreground:  #dcdccc
+! black + red
+!urxvt*color0:     #3f3f3f
+urxvt*color0:      #1E2320
+urxvt*color1:      #705050
+! green + yellow
+urxvt*color2:      #60b48a
+urxvt*color3:      #dfaf8f
+! blue + purple
+urxvt*color4:      #506070
+urxvt*color5:      #dc8cc3
+! cyan + white
+urxvt*color6:      #8cd0d3
+urxvt*color7:      #dcdccc
+! bright-black + bright-red
+urxvt*color8:      #709080
+urxvt*color9:      #dca3a3
+! bright-green + bright-yellow
+urxvt*color10:     #c3bf9f
+urxvt*color11:     #f0dfaf
+! bright-blue + bright-purple
+urxvt*color12:     #94bff3
+urxvt*color13:     #ec93d3
+! bright-cyan + bright-white
+urxvt*color14:     #93e0e3
+urxvt*color15:     #ffffff
+! 
+! Colorful and sharp
+!urxvt*background:  #000000
+!urxvt*foreground:  #EBEBFF
+! black + red
+!urxvt*color0:      #000000
+!urxvt*color1:      #e01010
+! green + yellow
+!urxvt*color2:      #00AA00
+!urxvt*color3:      #FFFF00
+! blue + purple
+!!urxvt*color4:     #112037
+!urxvt*color4:      #204a87
+!urxvt*color5:      #A020F0
+! cyan + white
+!urxvt*color6:      #5B5BC7
+!urxvt*color7:      #fefefe
+! bright-black + bright-red
+!urxvt*color8:      #6a6a6a
+!urxvt*color9:      #FF5555
+! bright-green + bright-yellow
+!urxvt*color10:     #90EE90
+!urxvt*color11:     #ffff2f
+! bright-blue + bright-purple
+!urxvt*color12:     #5B5BC7
+!urxvt*color13:     #e628ba
+! bright-cyan + bright-white
+!urxvt*color14:     #7D7DFB
+!urxvt*color15:     #ffffff
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X T E R M
+!
+!
+xterm*internalBorder:        0
+xterm*loginShell:         true
+xterm*scrollBar:         false
+xterm*cursorBlink:        true
+!xterm*geometry:         80x26
+!xterm*saveLines:         65535
+xterm*dynamicColors:        on
+xterm*highlightSelection: true
+! Appearance
+xterm*utf8: 2
+xterm*eightBitInput: true
+xterm*faceName:      terminus:pixelsize=10
+xterm*cursorColor:   #FFFFFF
+! Zenburn
+xterm*background:  #3f3f3f
+xterm*foreground:  #dcdccc
+xterm*color0:      #1E2320
+xterm*color1:      #705050
+xterm*color2:      #60b48a
+xterm*color3:      #dfaf8f
+xterm*color4:      #506070
+xterm*color5:      #dc8cc3
+xterm*color6:      #8cd0d3
+xterm*color7:      #dcdccc
+xterm*color8:      #709080
+xterm*color9:      #dca3a3
+xterm*color10:     #c3bf9f
+xterm*color11:     #f0dfaf
+xterm*color12:     #94bff3
+xterm*color13:     #ec93d3
+xterm*color14:     #93e0e3
+xterm*color15:     #ffffff
+
+
+!-------------------------------------------------------------------------------
+!
+!	X L O C K
+!
+! 
+XLock.mode:          fzort
+!XLock.mode:         atunnels
+!XLock.icongeometry: 256x256
+XLock.username:      User: 
+XLock.password:      Pass: 
+XLock.foreground:    White
+XLock.background:    Gray20
+XLock.description:   false
+XLock.echokeys:      true
+XLock.echokey:       *
+XLock.info:          
+!XLock.info:         Enter password to unlock \nSelect icon to lock
+XLock.validate:      Validating login...
+XLock.invalid:       Login failed
+XLock.font:          -xos4-terminus-*-*-*-*-*-*-*-*-*-*-*-*
+XLock.planfont:      -xos4-terminus-*-*-*-*-*-*-*-*-*-*-*-*
+XLock.messagefont:   -xos4-terminus-*-*-*-*-*-*-*-*-*-*-*-*
+XLock.ncolors:       256
+!XLock.dpmsstandby:  600
+!XLock.dpmssuspend:  1200
+!XLock.dpmsoff:      1800
+
+
+!-------------------------------------------------------------------------------
+!
+!	X M A N
+!
+!
+Xman*Background:            #ceccc7
+Xman*bothShown:             true
+Xman*Foreground:            Black
+Xman*topBox:                false
+Xman*manualFontNormal:      nFONT
+Xman*manualFontBold:        bFONT
+Xman*manualFontItalic:      iFONT
+Xman*directoryFontNormal:   nFONT
+
+
+!-------------------------------------------------------------------------------
+!
+!	X C L O C K
+!
+!
+xclock*Background:  #92927d
+xclock*Border:      #92927d
+xclock*Mode:        analog
+xclock*update:      1
+xclock*Foreground:  black
+xclock*geometry:    120x120+585+180
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X D I A R Y
+!
+!
+xdiary*geometry:   246x192+904+562
+xdiary*background: #92927d
+xdiary*foreground: White
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X M E S S A G E
+!
+!
+Xmessage*font:       CommandFONT
+xmessage*font:       CommandFONT
+!Xmessage*geometry:  +20+20
+!xmessage*geometry:  +20+20
+Xmessage*background: #ceccc7
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X C L I P B O A R D
+!
+!
+XClipboard*international: true
+XClipboard*font:          -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-*
+xclipboard.geometry:	  287x195+863+797
+XClipboard*borderColor:	  #ceccc7
+XClipboard*cursorColor:	  Gray93
+XClipboard*Foreground:    Black
+XClipboard*Background:    #ceccc7
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X L O A D
+!
+! needs work
+xload.wm_option.title:  off
+xload*highlight:	grey50
+xload*borderWidth:	1
+xload*background:	#ceccc7
+xload*font:             -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-*
+xload*padding:		3
+xload*update:		5
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X V
+!
+! needs work
+xv*background:	#ceccc7
+xv*foreground:	black
+xv.browseMode:	true
+xv.ctrlMap:     true
+xv.ctrlGeometry:+300+300
+xv.geometry:	+0+0
+
+
+!-------------------------------------------------------------------------------
+!
+!
+!      X F I G
+!
+! needs work
+xfig*form.side_panel*background:        SteelBlue2
+xfig*form.side_panel.button*background: SteelBlue
+xfig*form.side_panel*foreground:        Yellow
+xfig*form.indicator*background:         Red
+xfig*form.sruler*background:            Green
+xfig*form.truler*background:            Green
+xfig*form.canvas*background:            Wheat
+xfig*form.message*background:           Red
+xfig*form.message*foreground:           Yellow
+xfig*form.font_menu*background:         Yellow
+xfig*form.font_indicator*background:    Yellow
+xfig*form.font_menu*foreground:         Red
+xfig*form.font_indicator*foreground:    Red
+xfig*form.popup_menu*background:        Yellow
+xfig*form.popup_menu*foreground:        Red
+xfig*iconImageForeground:               Black
+xfig*iconImageBackground:               Green
+
+
+!-------------------------------------------------------------------------------
+!
+!	X C A L C
+!
+!
+xcalc*geometry:                        200x275
+xcalc.ti.bevel.background:             #111111
+xcalc.ti.bevel.screen.background:      #000000
+xcalc.ti.bevel.screen.DEG.background:  #000000
+xcalc.ti.bevel.screen.DEG.foreground:  LightSeaGreen
+xcalc.ti.bevel.screen.GRAD.background: #000000
+xcalc.ti.bevel.screen.GRAD.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.RAD.background:  #000000
+xcalc.ti.bevel.screen.RAD.foreground:  LightSeaGreen
+xcalc.ti.bevel.screen.INV.background:  #000000
+xcalc.ti.bevel.screen.INV.foreground:  Red
+xcalc.ti.bevel.screen.LCD.background:  #000000
+xcalc.ti.bevel.screen.LCD.foreground:  LightSeaGreen
+xcalc.ti.bevel.screen.LCD.shadowWidth: 0
+xcalc.ti.bevel.screen.M.background:    #000000
+xcalc.ti.bevel.screen.M.foreground:    LightSeaGreen
+xcalc.ti.bevel.screen.P.background:    #000000
+xcalc.ti.bevel.screen.P.foreground:    Yellow
+xcalc.ti.Command.foreground:  White
+xcalc.ti.Command.background:  #777777
+xcalc.ti.button5.background:  Orange3
+xcalc.ti.button19.background: #611161
+xcalc.ti.button18.background: #611161
+xcalc.ti.button20.background: #611111
+xcalc.ti.button25.background: #722222
+xcalc.ti.button30.background: #833333
+xcalc.ti.button35.background: #944444
+xcalc.ti.button40.background: #a55555
+xcalc.ti.button22.background: #222262
+xcalc.ti.button23.background: #222262
+xcalc.ti.button24.background: #222272
+xcalc.ti.button27.background: #333373
+xcalc.ti.button28.background: #333373
+xcalc.ti.button29.background: #333373
+xcalc.ti.button32.background: #444484
+xcalc.ti.button33.background: #444484
+xcalc.ti.button34.background: #444484
+xcalc.ti.button37.background: #555595
+xcalc.ti.button38.background: #555595
+xcalc.ti.button39.background: #555595
+XCalc*Cursor:                 hand2
+XCalc*ShapeStyle:             rectangle
+
+
+!-------------------------------------------------------------------------------
+!
+!	X F O N T S E L
+!
+!
+!XFontSel*sampleText.background:     TEXTBG
+XFontSel*menu*showUnselectable:       false
+XFontSel*MenuButton.shadowWidth:          0
+XFontsel*Toggle*ToggleStyle:          check
+XFontsel*MenuButton*Justify:           left
+XFontsel*MenuButton*MenuButtonStyle: select
+xfontsel.pane.commandBox.quitButton.background: #777777
+xfontsel.pane.commandBox.quitButton.foreground: snow
+xfontsel.pane.commandBox.ownButton.background:  orange3
+xfontsel.pane.commandBox.ownButton.foreground:  snow
+xfontsel.pane.commandBox.countLabel.background: snow
+xfontsel.pane.viewPort.sampleText.background:   #777777
+xfontsel.pane.viewPort.sampleText.foreground:   snow
+xfontsel.pane.fieldBox.field0.background:  #777777
+xfontsel.pane.fieldBox.field0.foreground:  snow
+xfontsel.pane.fieldBox.field1.background:  #777777
+xfontsel.pane.fieldBox.field1.foreground:  snow
+xfontsel.pane.fieldBox.field2.background:  #777777
+xfontsel.pane.fieldBox.field2.foreground:  snow
+xfontsel.pane.fieldBox.field3.background:  #777777
+xfontsel.pane.fieldBox.field3.foreground:  snow
+xfontsel.pane.fieldBox.field4.background:  #777777
+xfontsel.pane.fieldBox.field4.foreground:  snow
+xfontsel.pane.fieldBox.field5.background:  #777777
+xfontsel.pane.fieldBox.field5.foreground:  snow
+xfontsel.pane.fieldBox.field6.background:  #777777
+xfontsel.pane.fieldBox.field6.foreground:  snow
+xfontsel.pane.fieldBox.field7.background:  #777777
+xfontsel.pane.fieldBox.field7.foreground:  snow
+xfontsel.pane.fieldBox.field8.background:  #777777
+xfontsel.pane.fieldBox.field8.foreground:  snow
+xfontsel.pane.fieldBox.field9.background:  #777777
+xfontsel.pane.fieldBox.field9.foreground:  snow
+xfontsel.pane.fieldBox.field10.background: #777777
+xfontsel.pane.fieldBox.field10.foreground: snow
+xfontsel.pane.fieldBox.field11.background: #777777
+xfontsel.pane.fieldBox.field11.foreground: snow
+xfontsel.pane.fieldBox.field12.background: #777777
+xfontsel.pane.fieldBox.field12.foreground: snow
+xfontsel.pane.fieldBox.field13.background: #777777
+xfontsel.pane.fieldBox.field13.foreground: snow
+xfontsel.pane.fieldBox*foreground:         #000000
+xfontsel.pane.fieldBox.MenuButton.borderWidth:   1
+xfontsel.pane.fieldBox.MenuButton.internalHeight:1
+xfontsel.pane.fieldBox.MenuButton.internalWidth: 2
+xfontsel.pane.fieldBox.MenuButton.shapeStyle:    rectangle

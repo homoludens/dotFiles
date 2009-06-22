@@ -1,0 +1,14 @@
+# Write your default config options here!
+monitoraspect=1280:800
+#font="Helvetica"
+vo=xv
+subfont-osd-scale=3
+sub-bg-color=0
+sub-bg-alpha=0
+subfont-outline=8
+#zoom=yes
+ao=alsa
+af=volnorm
+subcp=cp1250
+#af=volnorm=1
+sub-fuzziness=2

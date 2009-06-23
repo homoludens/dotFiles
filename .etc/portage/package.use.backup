@@ -1,0 +1,47 @@
+dev-db/mysql-gui-tools administrator query-browser workbench
+dev-python/PyQt4 doc examples
+kde-base/kopete  autoreplace connectionstatus contactnotes gadu groupwise highlight history irc jingle netmeeting nowlistening sametime sms statistics texteffect translator webpresence winpopup yahoo
+kde-misc/knetworkmanager (-pptp) openvpn
+media-gfx/blender blender-game
+net-dialup/ppp activefilter atm dhcp eap-tls radius
+x11-libs/cairo glitz svg pdf
+x11-libs/qscintilla examples
+x11-wm/beryl emerald kde
+x11-libs/qt doc examples qt3support sqlite3 xinerama
+dev-python/PyQt doc examples
+x11-drivers/xf86-input-evtouch  evcalibrate
+app-mobilephone/obexftp tcl swig
+app-admin/gkrellm  gnutls hddtemp
+media-video/transcode -sdl
+media-video/gpac -ffmpeg -unicode -alsa
+app-cdr/k3b -encode
+media-video/xine-ui -libcaca ncurses
+media-sound/amarok noamazon aac
+dev-lang/php  -postgres -kolab simplexml json
+media-video/transcode mjpeg -imagemagick
+media-gfx/pstoedit -imagemagick plotutils
+app-text/poppler-bindings  cairo
+media-video/mplayer real -gtk -cpudetection
+media-libs/win32codecs real
+#app-office/lyx  latex
+media-libs/swfdec -oss
+app-admin/conky  audacious bmpx hddtemp rss vim-syntax
+net-misc/streamtuner shout xiph
+media-libs/mlt -ffmpeg
+media-sound/mpd audiofile ao -libsamplerate
+media-gfx/imagemagick X bzip2 jpeg perl png svg tiff truetype xml zlib djvu doc fontconfig fpx graphviz gs hdri jbig jpeg2k lcms nocxx -openexr q32 q8 wmf
+dev-python/django examples test doc
+dev-lang/python doc
+dev-python/urwid examples
+app-emulation/virtualbox-bin additions
+dev-cpp/gtkmm   accessibility
+media-video/vlc -nsplugin
+net-analyzer/bwm-ng ncurses html
+net-misc/nxserver-freenx nxclient
+net-misc/nx rdesktop vnc
+net-misc/vnc server
+net-www/gnash -gstreamer -gtk -fbcon -sdl -nsplugin
+www-servers/lighttpd  fastcgi php
+x11-wm/dwm savedconfig
+virtual/poppler-glib cairo
+media-gfx/synfig doc examples fontconfig

@@ -1,0 +1,105 @@
+#app-accessibility/espeak ~x86 
+#app-arch/lzma ~* 
+#app-arch/lzma-utils ~* 
+#dev-db/sqlitebrowser ~* 
+#dev-libs/liboil ~x86 
+#dev-libs/pwlib ~x86 
+#dev-libs/stfl ~* 
+#dev-python/cx_freeze ~x86 
+#dev-python/gst-python ~x86 
+#dev-python/kiwi ~* 
+#dev-python/pykde ~* 
+#dev-python/sip ~x86 
+#dev-ruby/ruby-openid ~x86 
+#dev-ruby/ruby-yadis ~x86 
+dev-util/eric
+#dev-python/PyQt4
+#dev-util/gazpacho ~* 
+#kde-base/kregexpeditor ~* 
+#kde-base/ksvg ~* 
+#kde-misc/kdmtheme ~x86 
+#kde-misc/knetworkmanager ~* 
+#media-gfx/imagemagick ~x86 
+#media-libs/gnonlin ~x86 
+#media-libs/gst-plugins-bad ~x86 
+#media-libs/gst-plugins-base ~x86 
+#media-libs/gst-plugins-good ~x86 
+#media-libs/gstreamer ~x86 
+#media-libs/libcaca ~x86 
+#media-libs/mlt ~x86 
+#media-libs/mlt++ ~x86 
+#media-libs/tunepimp ~x86 
+#media-video/avidemux ~x86 
+#media-video/ffmpeg2theora ~x86 
+#media-video/kdenlive ~x86 
+#media-video/konverter ~* 
+#media-video/mplayerthumbs ~x86 
+#net-analyzer/arptools ~* 
+net-analyzer/bwm-ng ~* 
+#net-analyzer/mwcollect ~* 
+net-im/ekiga ~x86 
+#net-libs/libmrss ~* 
+#net-libs/libnxml ~* 
+#net-libs/libtorrent ~x86 
+#net-libs/opal ~x86 
+#net-misc/olsrd ~x86 
+#net-nds/openldap ~x86 
+#net-voip/wengophone-bin ~x86 
+#net-p2p/ktorrent 
+#sys-apps/lomoco ~* 
+#x11-apps/xlsclients ~x86 
+#x11-drivers/xf86-input-evtouch ~x86 
+#x11-proto/damageproto ~x86 
+#x11-wm/heliodor ~x86 
+#net-libs/libsoup ~x86
+dev-libs/glib
+#x11-libs/qscintilla
+#dev-python/qscintilla-python
+#media-video/transcode
+media-libs/libquicktime
+#app-cdr/k3b
+#media-video/vlc
+#=media-video/ffmpeg-0.4.9_p20080326  ~x86
+#media-video/gpac
+#x11-wm/awesome
+#app-emulation/wine
+dev-python/django
+media-sound/lastfmplayer
+media-plugins/alsa-plugins
+media-libs/alsa-lib
+media-sound/alsa-headers
+#net-wireless/fsam7400
+#media-video/usb-pwc-re
+#app-text/poppler-bindings
+#sys-kernel/git-sources
+#net-wireless/iwl3945-ucode
+dev-cpp/libsexymm
+x11-libs/libview
+#app-emulation/virtualbox-modules
+app-emulation/virtualbox-ose
+app-emulation/virtualbox-bin
+dev-util/kbuild
+#www-client/mozilla-firefox-bin
+app-portage/kuroolito
+#x11-drivers/xf86-video-intel
+net-print/cndrvcups-common
+net-print/cndrvcups-capt
+#app-crypt/mit-krb5-1.6.3-r2
+#dev-libs/boost
+#dev-util/boost-build
+media-video/qc-usb
+media-video/linux-uvc
+dev-python/pysvn
+#media-video/pitivi
+dev-python/pygoocanvas
+#x11-libs/goocanvas
+app-emulation/virtualbox-modules
+media-libs/xine-lib
+app-misc/lastbash
+net-www/mozplugger
+dev-util/codeblocks
+sys-kernel/git-sources
+media-video/smile
+media-gfx/synfig
+dev-cpp/ETL
+dev-python/pykde

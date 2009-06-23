@@ -1,0 +1,54 @@
+# This blank configuration will automatically use DHCP for any net.*
+# scripts in /etc/init.d.  To create a more complete configuration,
+# please review /etc/conf.d/net.example and save your configuration
+# in /etc/conf.d/net (this file :]!).
+config_eth0=(192.168.1.2/24)
+#routes_eth0=(default via 192.168.1.1)
+gateways_eth0="192.168.1.1"
+
+
+modules=( "wpa_supplicant" )
+wpa_supplicant_wlan0="-w -Dwext -c /etc/wpa_supplicant/wpa_supplicant.conf"
+wpa_timeout_wlan0=60
+
+
+modules=( "dhcpcd" ) 
+config_wlan0=( "dhcp" ) 
+dhcpcd_wlan0="-I ''"
+
+# Configure first the RFC2684 bridge interface
+config_nas0=( null )
+# Use "-e 0" for LLC mux or "-e 1" for VC mux.
+# The 2 numbers after "-a" represent the VPI & VCI of your ISP, and
+# they are separated by a dot. Ask your ISP about those numbers.
+br2684ctl_nas0="-e 0 -a 8.35"
+
+config_ppp0=( ppp )  # Runs /lib/rcscripts/net/pppd.sh
+link_ppp0='nas0' # The name of the RFC2684 bridge interface
+plugins_ppp0=( 'pppoe' )
+# 'man pppd' shows other options. Compression is disabled because it is
+# rarely taken advantage of, and may interfere with the connection.
+# Add option 'usepeerdns' to populate /etc/resolv.conf
+pppd_ppp0=( updetach noauth debug defaultroute noaccomp nobsdcomp noccp
+        nodeflate nopcomp novj novjccomp child-timeout 60 usepeerdns)
+username_ppp0='markodjo/ip@beotel'  # ADSL login, assigned by your ISP
+password_ppp0='12345'  # ADSL password, assigned by your ISP
+
+depend_ppp0() {
+    need net.nas0
+}
+
+# If the kernel modules are not built-in, then they must be loaded
+# before starting the RFC2684 bridge:
+#function preup() {
+#        if [[ "$1" = "nas0" ]] ; then
+#                modprobe -q ueagle-atm
+#                return 0
+#        fi
+#
+#        if [[ ${IFACE} = "wlan0" ]]; then
+#                sleep 3
+#        fi
+#        return 0
+#}
+

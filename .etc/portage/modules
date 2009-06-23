@@ -1,0 +1,2 @@
+portdbapi.auxdbmodule = cache.sqlite.database
+
